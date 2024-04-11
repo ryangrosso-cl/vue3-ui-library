@@ -1,0 +1,23 @@
+{
+  "extends": [
+    "@clearlife-limited/eslint-config-vue3"
+  ],
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "jquery": true
+  },
+  "ignorePatterns": [
+    "**/debug/**"
+  ],
+  "overrides": [
+    // turn off as we are using auto import, as long as the tsconfig.json is configured correctly (noUnusedLocals: true)
+    {
+      "files": ["*.vue"],
+      "rules": {
+        "no-undef": "off"
+      }
+    }
+  ]
+}
