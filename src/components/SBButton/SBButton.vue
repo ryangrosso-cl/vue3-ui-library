@@ -7,6 +7,11 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 
+defineOptions({
+  name: "SBButton",
+  inheritAttrs: false,
+});
+
 const props = withDefaults(defineProps<{
   /**
    * The label of the button
