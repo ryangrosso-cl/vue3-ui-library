@@ -1,81 +1,62 @@
 <template>
-  <button type="button" :class="classes" :style="style" @click="onClick">
-    {{ label }}
-  </button>
+  <VBtn :color="buttonType" v-bind="btnProps">
+    Button
+  </VBtn>
 </template>
 
 <script lang="ts" setup>
 import { computed } from "vue";
+import { VBtn } from "vuetify/components";
+
+type VBtnProps = InstanceType<typeof VBtn>["$props"];
 
 const props = withDefaults(defineProps<{
-  /**
-   * The label of the button
-   */
-  label: string,
-  /**
-   * primary or secondary button
-   */
   primary?: boolean,
-  /**
-   * size of the button
-   */
-  size?: "small" | "medium" | "large",
-  /**
-   * background color of the button
-   */
-  backgroundColor?: string,
+  secondary?: boolean,
+  tertiary?: boolean,
+  size?:  "x-small" | "small" | "large" | "x-large",
+  flat: VBtnProps["flat"],
+  disabled: VBtnProps["disabled"],
+  ripple: VBtnProps["ripple"],
+  text: VBtnProps["text"],
+  icon: VBtnProps["icon"],
+  prependIcon: VBtnProps["prependIcon"],
+  appendIcon: VBtnProps["appendIcon"],
+  href: VBtnProps["href"],
+  elevation: VBtnProps["elevation"],
+}>(), {
+  primary: false,
+  secondary: false,
+  tertiary: false,
+  size: undefined,
+});
 
-}>(), { primary: false, size: undefined, backgroundColor: undefined });
-
-const emit = defineEmits<{
-  (e: "click", id: number): void;
-}>();
-
-const classes = computed(() => ({
-  "storybook-button": true,
-  "storybook-button--primary": props.primary,
-  "storybook-button--secondary": !props.primary,
-  [`storybook-button--${props.size || "medium"}`]: true,
+const btnProps = computed(() => ({
+  size: props.size,
+  flat: props.flat,
+  disabled: props.disabled,
+  ripple: props.ripple,
+  text: props.text,
+  icon: props.icon,
+  prependIcon: props.prependIcon,
+  appendIcon: props.appendIcon,
+  href: props.href,
+  elevation: props.elevation,
 }));
 
-const style = computed(() => ({
-  backgroundColor: props.backgroundColor,
-}));
+const buttonType = computed(() => {
+  switch (true) {
+    case props.primary:
+      return "primary";
 
-const onClick = () => {
-  emit("click", 1);
-};
+    case props.secondary:
+      return "secondary";
+
+    case props.tertiary:
+      return "tertiary";
+
+    default:
+      return "primary";
+  }
+});
 </script>
-
-<style scoped>
-.storybook-button {
-  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 700;
-  border: 0;
-  border-radius: 3em;
-  cursor: pointer;
-  display: inline-block;
-  line-height: 1;
-}
-.storybook-button--primary {
-  color: white;
-  background-color: #1ea7fd;
-}
-.storybook-button--secondary {
-  color: #333;
-  background-color: transparent;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
-}
-.storybook-button--small {
-  font-size: 12px;
-  padding: 10px 16px;
-}
-.storybook-button--medium {
-  font-size: 14px;
-  padding: 11px 20px;
-}
-.storybook-button--large {
-  font-size: 16px;
-  padding: 12px 24px;
-}
-</style>
