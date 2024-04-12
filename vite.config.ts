@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [
     vue(),
     dts({
-      tsconfigPath: "./tsconfig.build.json",
+      tsconfigPath: "./tsconfig.app.json",
       exclude: ["**/*.stories.ts", "**/*.spec.ts", "**/*.test.ts"],
       insertTypesEntry: true,
     }),

@@ -15,13 +15,14 @@ defineOptions({
   inheritAttrs: false,
 });
 
+
 const props = withDefaults(defineProps<{
   primary?: boolean,
   secondary?: boolean,
   tertiary?: boolean,
   size?:  "x-small" | "small" | "large" | "x-large",
+  disabled?: boolean,
   // flat: VBtnProps["flat"],
-  // disabled: VBtnProps["disabled"],
   // ripple: VBtnProps["ripple"],
   // text: VBtnProps["text"],
   // icon: VBtnProps["icon"],
@@ -34,12 +35,15 @@ const props = withDefaults(defineProps<{
   secondary: false,
   tertiary: false,
   size: undefined,
+  boolean: false,
 });
+defineEmits(["click"]);
+
 
 const btnProps = computed(() => ({
   size: props.size,
+  disabled: props.disabled,
   // flat: props.flat,
-  // disabled: props.disabled,
   // ripple: props.ripple,
   // text: props.text,
   // icon: props.icon,
