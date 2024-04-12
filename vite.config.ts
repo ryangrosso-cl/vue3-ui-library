@@ -10,6 +10,7 @@ export default defineConfig({
     dts({
       tsconfigPath: "./tsconfig.build.json",
       exclude: ["**/*.stories.ts", "**/*.spec.ts", "**/*.test.ts"],
+      insertTypesEntry: true,
     }),
   ],
   resolve: {
@@ -34,6 +35,10 @@ export default defineConfig({
           vue: "Vue",
           vuetify: "Vuetify",
         },
+      },
+      // Exclude .stories.ts files
+      treeshake: {
+        moduleSideEffects: (id) => !id.endsWith(".stories.ts"),
       },
     },
   },

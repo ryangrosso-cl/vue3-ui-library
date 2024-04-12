@@ -6,12 +6,22 @@
   "files": ["dist"],
   "main": "./dist/main.umd.js",
   "module": "./dist/main.es.js",
+  "types": "./dist/types/src/main.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/types/src/main.d.ts",
       "import": "./dist/main.es.js",
       "require": "./dist/main.umd.js"
     },
     "./styles": "./dist/main.css"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./*"
+      ]
+    }
   },
   "scripts": {
     "dev": "vite",
