@@ -1,11 +1,16 @@
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import dts from "vite-plugin-dts";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
+    dts({
+      tsconfigPath: "./tsconfig.build.json",
+      exclude: ["**/*.stories.ts", "**/*.spec.ts", "**/*.test.ts"],
+    }),
   ],
   resolve: {
     alias: {
@@ -17,10 +22,11 @@ export default defineConfig({
     target: "esnext",
     minify: false,
     lib: {
-      entry: fileURLToPath(new URL("./src/create.ts", import.meta.url)),
+      entry: fileURLToPath(new URL("./src/main.ts", import.meta.url)),
       name: "ClearLife UI Library",
-      fileName: (format) => `create-ui.${format}.js`,
+      fileName: (format) => `main.${format}.js`,
     },
+    cssCodeSplit: true,
     rollupOptions: {
       external: ["vue", "vuetify"], // replace 'vue' with your library's peer dependencies
       output: {
