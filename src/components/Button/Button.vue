@@ -6,15 +6,15 @@
 
 <script lang="ts" setup>
 import { computed } from "vue";
-// import { VBtn } from "vuetify/components";
+import type { VBtn } from "vuetify/components";
 
-// type VBtnProps = InstanceType<typeof VBtn>["$props"];
+type VBtnProps = Partial<InstanceType<typeof VBtn>["$props"]>;
+type Text = Partial<InstanceType<typeof VBtn>["$props"]>["text"];
 
 defineOptions({
   name: "CLButton",
   inheritAttrs: false,
 });
-
 
 const props = withDefaults(defineProps<{
   primary?: boolean,
@@ -22,20 +22,21 @@ const props = withDefaults(defineProps<{
   tertiary?: boolean,
   size?:  "x-small" | "small" | "large" | "x-large",
   disabled?: boolean,
-  // flat: VBtnProps["flat"],
-  // ripple: VBtnProps["ripple"],
-  // text: VBtnProps["text"],
-  // icon: VBtnProps["icon"],
-  // prependIcon: VBtnProps["prependIcon"],
-  // appendIcon: VBtnProps["appendIcon"],
-  // href: VBtnProps["href"],
-  // elevation: VBtnProps["elevation"],
+  ripple?: VBtnProps["ripple"],
+  flat?: VBtnProps["flat"],
+  text?: Text,
+  icon?: VBtnProps["icon"],
+  prependIcon?: VBtnProps["prependIcon"],
+  appendIcon?: VBtnProps["appendIcon"],
+  href?: VBtnProps["href"],
+  elevation?: VBtnProps["elevation"],
 }>(), {
   primary: false,
   secondary: false,
   tertiary: false,
   size: undefined,
   boolean: false,
+  ripple: true,
 });
 defineEmits(["click"]);
 
@@ -43,8 +44,8 @@ defineEmits(["click"]);
 const btnProps = computed(() => ({
   size: props.size,
   disabled: props.disabled,
+  ripple: props.ripple,
   // flat: props.flat,
-  // ripple: props.ripple,
   // text: props.text,
   // icon: props.icon,
   // prependIcon: props.prependIcon,

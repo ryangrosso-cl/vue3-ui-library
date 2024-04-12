@@ -2,7 +2,13 @@ import type { createApp } from "vue";
 import vuetify from "./vuetify";
 import { createPinia } from "pinia";
 
-export function registerPlugins(app: ReturnType<typeof createApp>) {
+export type RegisterOptions = {
+  pinia?: boolean;
+};
+
+export function registerPlugins(app: ReturnType<typeof createApp>, options: RegisterOptions = {}) {
   app.use(vuetify);
-  app.use(createPinia());
+  if (options.pinia ?? true) {
+    app.use(createPinia());
+  }
 }
